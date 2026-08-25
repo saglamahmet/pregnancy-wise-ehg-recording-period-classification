@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated manuscript and the archived software release."
+title: "Pregnancy-Wise Leakage-Controlled Multi-Representation Fusion for EHG Recording-Period Classification"
+type: software
+authors:
+  - family-names: "Sağlam"
+    given-names: "Ahmet"
+  - family-names: "Şentürk"
+    given-names: "Ümit"
+  - family-names: "Yücedağ"
+    given-names: "İbrahim"
+repository-code: "https://github.com/saglamahmet/pregnancy-wise-ehg-recording-period-classification"
+version: 1.0.0
+date-released: 2026-08-25
+license: MIT
+keywords:
+  - electrohysterography
+  - EHG
+  - wavelet scalogram
+  - CNN-Transformer
+  - pregnancy-wise validation
+  - information leakage
+  - multi-representation fusion
+
