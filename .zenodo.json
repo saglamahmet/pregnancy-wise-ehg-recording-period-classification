@@ -1,1 +1,40 @@
-
+{
+  "title": "Pregnancy-Wise Leakage-Controlled Multi-Representation Fusion for Classifying Early- and Later-Recorded Electrohysterographic Recordings Using Wavelet Scalograms",
+  "description": "Code associated with a pregnancy-wise leakage-controlled CNN–Transformer framework for classifying early- and later-recorded electrohysterographic recordings in ICEHG DS using S1, S2, S3, and RGB wavelet-scalogram representations and probability-level fusion. The endpoint is recording period, not preterm-birth prediction, delivery-outcome prediction, gestational-age estimation, or clinical diagnosis.",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Sağlam, Ahmet",
+      "affiliation": "Amasya University"
+    },
+    {
+      "name": "Şentürk, Ümit",
+      "affiliation": "Bolu Abant İzzet Baysal University"
+    },
+    {
+      "name": "Yücedağ, İbrahim",
+      "affiliation": "Düzce University"
+    }
+  ],
+  "access_right": "open",
+  "license": "mit",
+  "keywords": [
+    "electrohysterography",
+    "EHG",
+    "recording-period classification",
+    "wavelet scalogram",
+    "CNN–Transformer",
+    "pregnancy-wise validation",
+    "information leakage",
+    "multi-representation fusion"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://doi.org/10.13026/vrvd-mf28",
+      "relation": "isDerivedFrom",
+      "resource_type": "dataset"
+    }
+  ]
+}
