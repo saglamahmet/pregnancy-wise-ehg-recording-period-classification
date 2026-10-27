@@ -1,8 +1,8 @@
 {
   "title": "Pregnancy-Wise Leakage-Controlled Multi-Representation Fusion for Classifying Early- and Later-Recorded Electrohysterographic Recordings Using Wavelet Scalograms",
-  "description": "Version 1.1.0 provides the verified reviewer-rebuild CLEAN Colab notebook and aggregate outputs for pregnancy-wise, leakage-controlled classification of early- and later-recorded ICEHG DS observations. It corrects the primary mean outer-fold ROC-AUC evaluation, fold-stratified pregnancy-cluster bootstrap, inner three-way prediction protocol, architecture/fusion comparisons, Platt calibration, and added paired, confounder, conventional spectral baseline, CWT sensitivity, repeated-seed, and Grad-CAM analyses. The study is not a validated preterm-birth predictor or clinical diagnostic system. ICEHG DS source observations and large model/signal derivatives are not redistributed.",
+  "description": "Version 1.1.1 adds original, record-identified outer-fold assignments for 126 ICEHG records; complete pregnancy-disjoint fit, early-stopping, and untouched evaluation roles for all 15 nested inner folds; and final outer-model fit/early-stop assignments. These identifiers were cross-checked against the originally saved fold audits and held-out record-level predictions (126/126 agreement, zero pregnancy overlap). The reference PyWavelets requirement is pinned to 1.8.0, and the historical v1.1.0 pip-freeze discrepancy is documented rather than erased. The authoritative CLEAN v3.1 Colab notebook, aggregate outputs and all reported model results are unchanged. This study concerns early/later EHG recording-period classification, not clinical preterm birth prediction; ICEHG source signals and large derivatives are not redistributed.",
   "upload_type": "software",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "language": "eng",
   "creators": [
     {
@@ -31,7 +31,8 @@
     "nested cross-validation",
     "multi-representation fusion",
     "calibration",
-    "CWT sensitivity"
+    "CWT sensitivity",
+    "exact fold assignments"
   ],
   "related_identifiers": [
     {
