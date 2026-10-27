@@ -1,0 +1,20 @@
+{
+  "source": "Original CLEAN project a2_primary_outer_fold_assignments.csv, downloaded from connected Google Drive; no estimated historical outer assignments",
+  "notebook": "ICEHG_FINAL_REVIEWER_REBUILD_CLEAN_v3_1_PLATT_FALLBACK.ipynb",
+  "algorithm": "GroupKFold(n_splits=5) outer; GroupKFold(n_splits=3) inner; selected pregnancy-disjoint fit/early-stop/eval candidate determined by (inner_fold-1)%number_valid_candidates; final outer fit/early-stop uses first valid candidate",
+  "orig_outer_sha256": "029cda8511c9d96bd573d3d188cc786917a72b4e7412227c7d112c66cd348d98",
+  "orig_inner_audit_sha256": "e2015f07bd6e734f07a2d330c46b53c810efa3e0086045ce204624c753c75e97",
+  "orig_outer_audit_sha256": "671b50de7237e9fc0ae6b8448bcf519460a07f872098790e6e9eda26be35b0b8",
+  "checks": {
+    "recomputed_outer_assignment_match": true,
+    "inner_15_folds_all_fields_match_recorded_audit": true,
+    "outer_5_folds_all_fields_match_recorded_audit": true,
+    "126_records": true,
+    "91_pregnancies": true,
+    "no_pregnancy_overlap": true,
+    "master_oof_predictions_126_records_fold_and_pregnancy_match": true
+  },
+  "local_reconstruction_sklearn_version": "1.8.0",
+  "authoritative_notebook_sklearn_version": "1.6.1 as declared in its original environment_versions.json",
+  "original_master_oof_sha256": "eae37d7110c44eb382c0c8bab74275eaae8e616da2b3f3387c05d7a10613da2a"
+}
