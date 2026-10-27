@@ -6,6 +6,7 @@ This repository accompanies the manuscript **“Pregnancy-Wise Leakage-Controlle
 
 ## Versions
 
+- **v1.1.1 (reproducibility patch; awaiting a new GitHub release/Zenodo DOI):** exact original outer folds, all 15 inner fit/early-stop/evaluation assignments, and final outer fit/early-stop assignments are publicly available in [`reproducibility/v1.1.1/`](reproducibility/v1.1.1/); no new model training or performance claims. The same CLEAN notebook remains authoritative.
 - **v1.1.0 (reviewer-rebuild):** `ICEHG_FINAL_REVIEWER_REBUILD_CLEAN_v3_1_PLATT_FALLBACK.ipynb` — authoritative code for the revised analyses.
 - **v1.0.0 (historical):** `ICEHG_A2_OldPipeline_Revised_2026.ipynb` — preserved for version provenance; **its reported values should not be used for the revised manuscript**.
 
@@ -51,13 +52,13 @@ The code isolates **primary** results from exploratory sensitivity variants; no 
 
 ## Software environment
 
-A recorded environment snapshot for the revised run lists Python **3.13.16**, TensorFlow **2.21.0**, NumPy **2.1.3**, pandas **2.2.3**, scikit-learn **1.6.1**, WFDB **4.3.1**, and PyWavelets **1.8.0**, with a CUDA 12.5.1/cuDNN 9 TensorFlow build. The separate `pip_freeze.txt` snapshot reports **PyWavelets 1.10.0**; the two version records are not identical. Both snapshots are preserved for auditing, and exact bitwise reproduction cannot be claimed solely from these manifests. GPU behavior and package upgrades may change numerical outputs. See `environment_versions.json`, `pip_freeze.txt`, and `requirements.txt`.
+A recorded environment snapshot for the revised run lists Python **3.13.16**, TensorFlow **2.21.0**, NumPy **2.1.3**, pandas **2.2.3**, scikit-learn **1.6.1**, WFDB **4.3.1**, and PyWavelets **1.8.0**, with a CUDA 12.5.1/cuDNN 9 TensorFlow build. The current `main` branch reference files `environment_versions.json`, `pip_freeze.txt`, and `requirements.txt` consistently specify **PyWavelets 1.8.0**. The original v1.1.0 archived snapshot contained a conflicting `pip_freeze.txt` entry (1.10.0); that historical archive remains immutable and should not be rewritten as a clean original capture. The v1.1.1 update explicitly documents the metadata correction. Exact bitwise reproduction cannot be claimed solely from environment manifests. GPU behavior and package upgrades may change numerical outputs. See `environment_versions.json`, `pip_freeze.txt`, and `requirements.txt`.
 
 ## Availability and citation
 
-The original ICEHG dataset is hosted by PhysioNet and is not redistributed here. The notebook, aggregated result tables, reference environment files, and source metadata are public in this repository. Derived scalograms, model weights/checkpoints, and record-level predictions are not included in this GitHub source snapshot; see the manuscript's Data Availability Statement for access arrangements.
+The original ICEHG dataset is hosted by PhysioNet and is not redistributed here. The notebook, aggregated result tables, reference environment files, and source metadata are public in this repository. Exact fold assignments (including pregnancy grouping keys and record IDs) are available in `reproducibility/v1.1.1/`. Derived scalograms, model weights/checkpoints, and record-level prediction probabilities are not included in this GitHub source snapshot; see the manuscript's Data Availability Statement for access arrangements.
 
-See `CITATION.cff` for authors and version. Zenodo assigns a **new version-specific DOI** only after the v1.1.0 release is ingested; do not cite the older v1.0.0 DOI as if it archived the updated code.
+See `CITATION.cff` for authors and version. The v1.1.0 Zenodo archive is historical. A **new version-specific DOI** will be assigned only after GitHub release v1.1.1 is actually published and ingested by Zenodo. Until then, cite the existing v1.1.0 archive for the original reviewer-rebuild, and use the versioned GitHub folder for the split tables.
 
 ## License
 
