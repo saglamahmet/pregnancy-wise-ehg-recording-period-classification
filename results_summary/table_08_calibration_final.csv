@@ -1,0 +1,3 @@
+score,pooled_auc_secondary,brier,ece_10_quantile_bins
+Raw weighted ensemble,0.7137096774193549,0.22741500079943577,0.13567216312031405
+Fold-specific Platt-calibrated ensemble,0.7129536290322581,0.2223058260529186,0.12020310024375729
