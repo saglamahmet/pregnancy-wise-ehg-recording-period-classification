@@ -1,79 +1,64 @@
 # Pregnancy-Wise EHG Recording-Period Classification
 
-This repository contains the Google Colab implementation associated with the manuscript:
+This repository accompanies the manuscript **“Pregnancy-Wise Leakage-Controlled Multi-Representation Fusion for Classifying Early- and Later-Recorded Electrohysterographic Recordings Using Wavelet Scalograms.”**
 
-> **Pregnancy-Wise Leakage-Controlled Multi-Representation Fusion for Classifying Early- and Later-Recorded Electrohysterographic Recordings Using Wavelet Scalograms**
+**Prediction target:** distinguish early- versus later-recorded EHG observations in ICEHG DS. This is **not** preterm-birth prediction, labor prediction, or a clinically validated diagnostic tool.
 
-The study investigates pregnancy-wise leakage-controlled discrimination between **early-recorded** and **later-recorded** electrohysterographic (EHG) recordings in the Induced Cesarean Electrohysterogram DataSet (ICEHG DS). The task is recording-period classification; it is **not** preterm-birth prediction, delivery-outcome prediction, gestational-age estimation, or clinical diagnosis.
+## Versions
 
-## Study overview
+- **v1.1.0 (reviewer-rebuild):** `ICEHG_FINAL_REVIEWER_REBUILD_CLEAN_v3_1_PLATT_FALLBACK.ipynb` — authoritative code for the revised analyses.
+- **v1.0.0 (historical):** `ICEHG_A2_OldPipeline_Revised_2026.ipynb` — preserved for version provenance; **its reported values should not be used for the revised manuscript**.
 
-- Dataset: ICEHG DS, 126 records from 91 pregnancies (62 early-recorded and 64 later-recorded).
-- Input representations: S1, S2, S3, and temporally aligned RGB wavelet scalograms.
-- Model: representation-specific CNN–Transformer networks with probability-level fusion.
-- Validation: five-outer/three-inner pregnancy-wise nested GroupKFold.
-- Leakage control: every record and derived segment from the same pregnancy remains in the same partition.
-- Adaptive decisions: ensemble weights, Platt-calibration parameters, and classification thresholds are derived exclusively from inner out-of-fold record-level predictions.
-- Evaluation level: segment probabilities are averaged within each EHG record before final analysis.
+## Dataset and preprocessing
 
-## Primary result
+- **Source:** PhysioNet ICEHG DS v1.0.1, https://physionet.org/content/icehg-ds/ and https://doi.org/10.13026/vrvd-mf28.
+- 126 records from 91 pregnancies (62 early, 64 later); 35 pregnancies have both recordings, 56 have one.
+- Three bipolar EHG channels S1/S2/S3 sampled at 20 Hz; 0.08–5 Hz filter; synchronized 120-second segments with 60-second stride.
+- **Primary CWT:** real Morlet (`morl`), integer scales 1–128, PyWavelets **`method="conv"`**, squared coefficient magnitudes, per-channel/segment min–max mapping to `uint8`, bilinear resize to 224×224, followed by model input scaling to `float32/255`.
+- Models: one CNN–SE–Transformer for each S1/S2/S3 and RGB representation. Predictions aggregate from segment to record, then combine at the probability level.
+- **Validation:** five outer and three inner pregnancy-disjoint folds. Fit, early-stopping, and untouched inner-evaluation subsets are pregnancy-disjoint; only untouched inner out-of-fold predictions inform fusion weights, calibration, and threshold selection.
 
-The proposed weighted RGB+S1+S2+S3 ensemble achieved a pooled raw ROC-AUC of 0.811 (95% pregnancy-wise bootstrap CI: 0.738–0.879). The associated accuracy, sensitivity, specificity, F1-score, and balanced accuracy were 0.706, 0.677, 0.734, 0.694, and 0.706, respectively.
+## Corrected primary findings
 
-These values describe within-dataset recording-period discrimination under pregnancy-wise held-out evaluation and must not be interpreted as clinical predictive performance.
+The primary discrimination metric is the **unweighted mean of five held-out outer-fold raw ROC-AUC values**, not ROC-AUC calculated after pooling held-out predictions across folds.
 
-## Repository contents
+| Metric | Revised estimate |
+| --- | ---: |
+| Weighted RGB+S1+S2+S3 mean outer-fold ROC-AUC ± SD | **0.804 ± 0.062** |
+| 95% fold-stratified pregnancy-cluster bootstrap interval (20,000 replicates) | **0.725–0.880** |
+| Secondary pooled raw ROC-AUC | 0.714 |
+| Equal-weight four-stream mean outer-fold ROC-AUC | 0.807 |
+| Highest standalone stream (S1) mean outer-fold ROC-AUC | 0.806 |
+| Accuracy / balanced accuracy | 0.635 / 0.639 |
+| Sensitivity / specificity | 0.919 / 0.359 |
+| Raw → Platt-calibrated Brier score | 0.227 → 0.222 |
+| Raw → Platt-calibrated ECE | 0.136 → 0.120 |
 
-- `ICEHG_A2_OldPipeline_Revised_2026.ipynb`: Colab workflow for nested model training, record-level prediction aggregation, representation fusion, calibration, statistical evaluation, architecture ablation, Grad-CAM generation, and computational profiling.
-- `requirements.txt`: principal Python dependencies.
-- `CITATION.cff`: citation metadata for GitHub and archival releases.
-- `.zenodo.json`: metadata prepared for Zenodo archiving.
-- `.gitignore`: excludes datasets, scalograms, trained models, prediction outputs, caches, and local environment files.
+Only one of five prespecified paired tests was statistically significant after Holm adjustment: **weighted four-stream fusion vs standalone hybrid RGB**, difference in mean outer-fold AUC **+0.091** (95% nominal CI 0.026–0.158; Holm-adjusted p = 0.0355). Neither a standalone hybrid-architecture advantage nor superiority of optimized over equal weighting was established.
 
-## Data availability
+Supplementary analyses address paired pregnancies, metadata/acquisition confounders, conventional Welch spectral classifiers, CWT frequency and representation sensitivity, repeated random seeds, architecture ablations, and Grad-CAM.
 
-ICEHG DS is publicly available from PhysioNet:
+## How to reproduce
 
-- https://physionet.org/content/icehg-ds/
-- https://doi.org/10.13026/vrvd-mf28
+1. Launch the **v1.1.0 notebook** in Google Colab with a suitable GPU and a writable Google Drive mount.
+2. In configuration cell **2**, set `PROJECT_ROOT` to your output location and `DATA_ROOT` to a raw ICEHG DS directory. The supplied example paths are specific to the study's original Drive and are **not universal locations**.
+3. The notebook verifies/downloads the publicly available PhysioNet ICEHG DS v1.0.1 where needed, reconstructs pregnancy identifiers, filters EHG signals, and regenerates scalograms from the source. **The v1.1.0 pipeline does not require the v1.0.0 precomputed `.npy` scalogram inputs.**
+4. Execute cells in order. Numerous CNN training configurations, seeds, and sensitivity analyses can be computationally expensive.
+5. For a new independent execution, use **a new empty output directory** or explicitly enable rebuild/retrain flags. `FORCE_RETRAIN=False` and cache/resume flags allow completed outputs to be reused within the same project root; do **not** confuse reuse of existing checkpoints with independent replication.
+6. Check `07_tables/FINAL_key_results.csv`, `07_tables/FINAL_reproducibility_audit.csv`, output manifests, and accompanying CSV tables. Figures are in `08_figures` and additional checks in named analysis subfolders.
 
-The PhysioNet dataset is not redistributed in this repository. Derived scalogram arrays, trained-model files, prediction files, and other large analysis outputs are also excluded. The notebook expects the following precomputed files in the configured Colab/Google Drive source directory:
+The code isolates **primary** results from exploratory sensitivity variants; no variant or random seed should be selected after inspection of outer-test performance.
 
-- `S1_scalograms_120s.npy`
-- `S2_scalograms_120s.npy`
-- `S3_scalograms_120s.npy`
-- `RGB_scalograms_120s.npy`
-- the corresponding segment-metadata file used by the workflow
+## Software environment
 
-Users must obtain the source data under the PhysioNet terms and configure the notebook paths for their own Google Drive environment.
+A recorded environment snapshot for the revised run lists Python **3.13.16**, TensorFlow **2.21.0**, NumPy **2.1.3**, pandas **2.2.3**, scikit-learn **1.6.1**, WFDB **4.3.1**, and PyWavelets **1.8.0**, with a CUDA 12.5.1/cuDNN 9 TensorFlow build. The separate `pip_freeze.txt` snapshot reports **PyWavelets 1.10.0**; the two version records are not identical. Both snapshots are preserved for auditing, and exact bitwise reproduction cannot be claimed solely from these manifests. GPU behavior and package upgrades may change numerical outputs. See `environment_versions.json`, `pip_freeze.txt`, and `requirements.txt`.
 
-## Running the notebook
+## Availability and citation
 
-1. Open the notebook in Google Colab.
-2. Select a GPU runtime. The reported experiments used an NVIDIA A100-SXM4-40GB GPU.
-3. Place the required precomputed scalogram arrays and segment metadata in a Google Drive directory.
-4. Update `SOURCE_DIR` and `OUT_ROOT` in the configuration cell to match your own Drive paths.
-5. Run the notebook cells sequentially.
-6. Keep `FORCE_RETRAIN = False` when resuming an interrupted run so completed tasks can be reused where supported by the workflow.
+The original ICEHG dataset is hosted by PhysioNet and is not redistributed here. The notebook, aggregated result tables, reference environment files, and source metadata are public in this repository. Derived scalograms, model weights/checkpoints, and record-level predictions are not included in this GitHub source snapshot; see the manuscript's Data Availability Statement for access arrangements.
 
-The reference environment used TensorFlow 2.20.0, a TensorFlow build reporting CUDA 12.5.1 and cuDNN 9, and 32-bit floating-point computation without mixed precision.
-
-## Computational profile
-
-The complete four-model ensemble comprised 6,289,524 parameters and had a combined stored `.keras` size of 73.47 MB. Across 80 training runs, the mean and median completed epoch counts were 16.51 and 16. On the reference A100 GPU, mean and median record-level ensemble inference times were 454.39 ms and 454.29 ms, excluding model-loading time. These measurements are hardware-specific benchmarks; total training wall-clock time was not recorded.
-
-## Reproducibility notes
-
-- The repository does not contain participant-level data.
-- Google Drive paths in the notebook are examples from the original Colab environment and must be changed locally.
-- The reported outer-fold performance is not recomputed or altered by the computational-profiling section.
-- Exact reproducibility also depends on the source scalograms, metadata reconstruction, software stack, hardware, and deterministic behavior of the underlying deep-learning operations.
+See `CITATION.cff` for authors and version. Zenodo assigns a **new version-specific DOI** only after the v1.1.0 release is ingested; do not cite the older v1.0.0 DOI as if it archived the updated code.
 
 ## License
 
-The source code in this repository is released under the MIT License. The ICEHG DS remains subject to the terms specified by PhysioNet and its dataset authors.
-
-## Citation
-
-Citation metadata are provided in `CITATION.cff`. A version-specific Zenodo DOI will be added after the first archived release is created.
-
+The code is provided under the repository MIT license. The ICEHG DS retains the terms of its original PhysioNet repository and data authors.
