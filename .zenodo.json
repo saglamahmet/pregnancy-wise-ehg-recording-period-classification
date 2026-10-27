@@ -1,8 +1,8 @@
 {
   "title": "Pregnancy-Wise Leakage-Controlled Multi-Representation Fusion for Classifying Early- and Later-Recorded Electrohysterographic Recordings Using Wavelet Scalograms",
-  "description": "Code associated with a pregnancy-wise leakage-controlled CNN–Transformer framework for classifying early- and later-recorded electrohysterographic recordings in ICEHG DS using S1, S2, S3, and RGB wavelet-scalogram representations and probability-level fusion. The endpoint is recording period, not preterm-birth prediction, delivery-outcome prediction, gestational-age estimation, or clinical diagnosis.",
+  "description": "Version 1.1.0 provides the verified reviewer-rebuild CLEAN Colab notebook and aggregate outputs for pregnancy-wise, leakage-controlled classification of early- and later-recorded ICEHG DS observations. It corrects the primary mean outer-fold ROC-AUC evaluation, fold-stratified pregnancy-cluster bootstrap, inner three-way prediction protocol, architecture/fusion comparisons, Platt calibration, and added paired, confounder, conventional spectral baseline, CWT sensitivity, repeated-seed, and Grad-CAM analyses. The study is not a validated preterm-birth predictor or clinical diagnostic system. ICEHG DS source observations and large model/signal derivatives are not redistributed.",
   "upload_type": "software",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "language": "eng",
   "creators": [
     {
@@ -27,8 +27,11 @@
     "wavelet scalogram",
     "CNN–Transformer",
     "pregnancy-wise validation",
-    "information leakage",
-    "multi-representation fusion"
+    "leakage control",
+    "nested cross-validation",
+    "multi-representation fusion",
+    "calibration",
+    "CWT sensitivity"
   ],
   "related_identifiers": [
     {
