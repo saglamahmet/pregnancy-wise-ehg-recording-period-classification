@@ -1,0 +1,13 @@
+Result,Value
+Records,126.0
+Pregnancies,91.0
+Accuracy,0.6349206349206349
+Sensitivity,0.9193548387096774
+Specificity,0.359375
+F1,0.7125
+Balanced accuracy,0.6393649193548387
+Primary mean outer-fold raw ROC-AUC,0.8042453379953379
+Outer-fold AUC SD,0.06204531832660369
+Primary AUC CI low,0.7248473697802741
+Primary AUC CI high,0.8799678015436941
+Secondary pooled raw ROC-AUC,0.7137096774193549
