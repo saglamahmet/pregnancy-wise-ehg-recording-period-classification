@@ -6,7 +6,7 @@ This repository accompanies the manuscript **“Pregnancy-Wise Leakage-Controlle
 
 ## Versions
 
-- **v1.1.1 (reproducibility patch; awaiting a new GitHub release/Zenodo DOI):** exact original outer folds, all 15 inner fit/early-stop/evaluation assignments, and final outer fit/early-stop assignments are publicly available in [`reproducibility/v1.1.1/`](reproducibility/v1.1.1/); no new model training or performance claims. The same CLEAN notebook remains authoritative.
+- **v1.1.1 (published reproducibility patch; version-specific DOI: [10.5281/zenodo.23710237](https://doi.org/10.5281/zenodo.23710237)):** exact original outer folds, all 15 inner fit/early-stop/evaluation assignments, and final outer fit/early-stop assignments are publicly available in [`reproducibility/v1.1.1/`](reproducibility/v1.1.1/); no new model training or performance claims. The same CLEAN notebook remains authoritative.
 - **v1.1.0 (reviewer-rebuild):** `ICEHG_FINAL_REVIEWER_REBUILD_CLEAN_v3_1_PLATT_FALLBACK.ipynb` — authoritative code for the revised analyses.
 - **v1.0.0 (historical):** `ICEHG_A2_OldPipeline_Revised_2026.ipynb` — preserved for version provenance; **its reported values should not be used for the revised manuscript**.
 
