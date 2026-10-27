@@ -10,8 +10,8 @@ authors:
   - family-names: "Yücedağ"
     given-names: "İbrahim"
 repository-code: "https://github.com/saglamahmet/pregnancy-wise-ehg-recording-period-classification"
-version: 1.1.0
-date-released: 2026-10-27
+version: 1.1.1
+date-released: 2026-10-28
 license: MIT
 keywords:
   - electrohysterography
