@@ -58,7 +58,7 @@ A recorded environment snapshot for the revised run lists Python **3.13.16**, Te
 
 The original ICEHG dataset is hosted by PhysioNet and is not redistributed here. The notebook, aggregated result tables, reference environment files, and source metadata are public in this repository. Exact fold assignments (including pregnancy grouping keys and record IDs) are available in `reproducibility/v1.1.1/`. Derived scalograms, model weights/checkpoints, and record-level prediction probabilities are not included in this GitHub source snapshot; see the manuscript's Data Availability Statement for access arrangements.
 
-See `CITATION.cff` for authors and version. The v1.1.0 Zenodo archive is historical. A **new version-specific DOI** will be assigned only after GitHub release v1.1.1 is actually published and ingested by Zenodo. Until then, cite the existing v1.1.0 archive for the original reviewer-rebuild, and use the versioned GitHub folder for the split tables.
+See CITATION.cff for the software authors, version information, and version-specific DOI. The v1.1.0 archive documents the original corrected CLEAN reviewer-rebuild, while v1.1.1 adds the exact pregnancy-wise fold assignments and related reproducibility documentation (DOI: https://doi.org/10.5281/zenodo.23710237). The v1.1.1 update did not involve model retraining or changes to the reported numerical results.
 
 ## License
 
